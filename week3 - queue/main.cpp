@@ -1,6 +1,8 @@
 #include <iostream>
 #include <queue>
 #include <string>
+#include <deque>
+#include <vector>
 #include "TwoQueueStack.hpp"
 #include "TwoStackQueue.hpp"
 using namespace std;
@@ -94,7 +96,44 @@ void task5(int n, int k)
 ///----------------------------------------------
 void task6(vector<int>& nums, int k)
 {
-	return;
+	deque<int>window;
+	queue<int>answer;
+
+	for (int i = 0; i < k; i++)
+	{
+		while (!window.empty() && nums[i] > window.back())
+		{
+			window.pop_back();
+		}
+		window.push_back(nums[i]);
+	}
+	answer.push(window.front());
+
+	for (int i = k; i < nums.size(); i++)
+	{
+		if (window.empty()) 
+		{
+			window.push_back(nums[i]);
+			answer.push(nums[i]);
+		}
+		else
+		{
+			if (window.front() == nums[i - k])window.pop_front();
+
+			while (!window.empty() && nums[i] > window.back())
+			{
+				window.pop_back();
+			}
+			window.push_back(nums[i]);
+			answer.push(window.front());
+		}
+	}
+	while (!answer.empty())
+	{
+		cout << answer.front() << " ";
+		answer.pop();
+	}
+	cout << endl;
 }
 ///----------------------------------------------
 void init(int used[][128], int n, int m, int arr[][128])
@@ -179,6 +218,17 @@ int main()
 	cin >> n >> k;
 	task5(n,k);
 	*/
+
+	int n, k, a;
+	vector<int>v;
+	cin >> n >> k;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a;
+		v.push_back(a);
+	}
+
+	task6(v, k);
 
 	/*int n, m, startx, starty, finishx, finishy, arr[128][128];
 	cin >> n >> m;
