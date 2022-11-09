@@ -31,8 +31,8 @@ public:
 	DoubleLinkedList<T>& operator= (const DoubleLinkedList& other);
 	~DoubleLinkedList();
 
-	void pushBack(T& element);
-	void pushFront(T& element);
+	void pushBack(const T& element);
+	void pushFront(const T& element);
 
 	void popBack();
 	void popFront();
@@ -102,9 +102,9 @@ DoubleLinkedList<T>::~DoubleLinkedList()
 }
 
 template<typename T>
-void DoubleLinkedList<T>::pushBack(T& element)
+void DoubleLinkedList<T>::pushBack(const T& element)
 {
-	Node<T>* ptr = new Node(element);
+	Node<T>* ptr = new Node<T>(element);
 	count++;
 
 	if (empty())
@@ -119,9 +119,9 @@ void DoubleLinkedList<T>::pushBack(T& element)
 }
 
 template<typename T>
-void DoubleLinkedList<T>::pushFront(T& element)
+void DoubleLinkedList<T>::pushFront(const T& element)
 {
-	Node<T>* ptr = new Node(element);
+	Node<T>* ptr = new Node<T>(element);
 	count++;
 
 	if (empty())
@@ -199,14 +199,14 @@ void DoubleLinkedList<T>::print() const
 	Node<T>* ptr = head;
 	while (ptr)
 	{
-		cout << ptr->data;
+		std::cout << ptr->data;
 		if (ptr != tail)
 		{
-			cout<<"<->"
+			std::cout << "<->";
 		}
 		ptr = ptr->next;
 	}
-	cout << endl;
+	std::cout << std::endl;
 }
 
 template<typename T>
